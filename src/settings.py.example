@@ -123,6 +123,7 @@ ENABLE_ALERTS = True
 #         )
 ALERTS = (
     ("skyline", "smtp", 1800),
+    ("skyline", "slack", 1800),
 )
 
 # Each alert module requires additional information.
@@ -158,6 +159,17 @@ PAGERDUTY_OPTS = {
     "key": "your_pagerduty_service_api_key",
 }
 
+# Slack alerts require pyslack
+SLACK_OPTS = {
+    "auth_token": "your_slack_auth_token",
+    # Name of bot
+    "username": "your_username",
+    # Channels to send message to. Can be a public channel, private group or IM channel.
+    # Can be an encoded ID, or a name
+    "channels": ["#custom_chat"],
+    # URL to an image to use as the icon for this message
+    "icon_url": "http://yoursite.com/icon.jpeg",
+}
 
 """
 Horizon settings

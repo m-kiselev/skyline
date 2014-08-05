@@ -63,6 +63,19 @@ def alert_hipchat(alert, metric):
         hipster.method('rooms/message', method='POST', parameters={'room_id': room, 'from': 'Skyline', 'color': settings.HIPCHAT_OPTS['color'], 'message': 'Anomaly: <a href="%s">%s</a> : %s' % (link, metric[1], metric[0])})
 
 
+def alert_slack(alert, metric):
+    import slack
+    import slack.chat
+    token = settings.SLACK_OPTS['auth_token']
+    username = settings.SLACK_OPTS['username']
+    channels = settings.SLACK_OPTS['channels']
+    icon_url = settings.SLACK_OPTS['icon_url']
+    slack.api_token = token
+
+    for channel in channels:
+        slack.chat.post_message(channel, "Anomalous metric: %s (value: %s)" % (metric[1], metric[0]), username=username, icon_url=icon_url)
+
+
 def trigger_alert(alert, metric):
 
     if '@' in alert[1]:
